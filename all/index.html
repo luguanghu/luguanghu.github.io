@@ -87,7 +87,7 @@
 <meta property="og:description" content="前端工程搭建mvvm？MVVM是Model-View-ViewModel的简写。即模型-视图-视图模型。【模型】指的是后端传递的数据。【视图】指的是所看到的页面。【视图模型】mvvm模式的核心，它是连接view和model的桥梁。它有两个方向：一是将【模型】转化成【视图】，即将后端传递的数据转化成所看到的页面。实现的方式是：数据绑定。二是将【视图】转化成【模型】，即将所看到的页面转化成后端的数据">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/mvvm.jpg">
-<meta property="og:updated_time" content="2019-01-10T01:21:14.957Z">
+<meta property="og:updated_time" content="2019-02-28T17:26:51.396Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="luhu的笔记">
 <meta name="twitter:description" content="前端工程搭建mvvm？MVVM是Model-View-ViewModel的简写。即模型-视图-视图模型。【模型】指的是后端传递的数据。【视图】指的是所看到的页面。【视图模型】mvvm模式的核心，它是连接view和model的桥梁。它有两个方向：一是将【模型】转化成【视图】，即将后端传递的数据转化成所看到的页面。实现的方式是：数据绑定。二是将【视图】转化成【模型】，即将所看到的页面转化成后端的数据">
@@ -286,11 +286,13 @@
 <li>v-bind = “$attrs” 和 v-on = “$listeners” inherritAttrs:false的应用<h2 id="高效工具"><a href="#高效工具" class="headerlink" title="高效工具"></a>高效工具</h2></li>
 </ol>
 <h2 id="javaScript"><a href="#javaScript" class="headerlink" title="javaScript"></a>javaScript</h2><ul>
-<li><a href="./inheritance/">js继承</a></li>
-<li><a href="./net/">网络</a></li>
-<li><a href="./high-level-func/">高级函数</a></li>
+<li><p><a href="../inheritance/">js继承</a></p>
+</li>
+<li><p><a href="../net/">网络</a></p>
+</li>
+<li><a href="../high-level-func/">高级函数</a></li>
 </ul>
-<h2 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h2><p><a href="./browserCompatibility/">浏览器兼容</a></p>
+<h2 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h2><p><a href="../browserCompatibility/">浏览器兼容</a></p>
 <h2 id="html"><a href="#html" class="headerlink" title="html"></a>html</h2><h3 id="h5新特性"><a href="#h5新特性" class="headerlink" title="h5新特性"></a>h5新特性</h3><h3 id="语义化"><a href="#语义化" class="headerlink" title="语义化"></a>语义化</h3><h3 id="seo怎么调整"><a href="#seo怎么调整" class="headerlink" title="seo怎么调整"></a>seo怎么调整</h3><h3 id="doctype"><a href="#doctype" class="headerlink" title="doctype"></a>doctype</h3><h2 id="css"><a href="#css" class="headerlink" title="css"></a>css</h2><h3 id="各种布局"><a href="#各种布局" class="headerlink" title="各种布局"></a>各种布局</h3><ol>
 <li>静态布局（static layout）<br>特点：常见的pc网站大都是静态布局的，使用min-width设置定宽，无论浏览器尺寸多少，都按照代码最初布局显示，小于布局宽度则滚动条显示，宽于布局宽度则剧中外加背景显示。设计简单，没有兼容性问题，但是不能根据屏幕尺寸作出不同表现。<br>设计方法：1 pc端中，居中布局，所有样式使用绝对高宽px,布局中的内容超出时使用滚动条； 2 移动端：设计另一套布局，使用不同的域名</li>
 <li>流式布局(liquid layout)<br>页面元素的宽度按照屏幕分辨率进行适配调整，但整体布局不变。代表作栅栏系统（网格系统）。<br>网页中主要的划分区域的尺寸使用百分数（搭配min-<em>、max-</em>属性使用），例如，设置网页主体的宽度为80%，min-width为960px。图片也作类似处理（width:100%, max-width一般设定为图片本身的尺寸，防止被拉伸而失真）。<br>1布局特点：屏幕分辨率变化时，页面里元素的大小会变化而但布局不变。【这就导致如果屏幕太大或者太小都会导致元素无法正常显示】<br>2设计方法：使用%百分比定义宽度，高度大都是用px来固定住，可以根据可视区域 (viewport) 和父元素的实时尺寸进行调整，尽可能的适应各种分辨率。往往配合 max-width/min-width 等属性控制尺寸流动范围以免过大或者过小影响阅读。<br>这种布局方式在Web前端开发的早期历史上，用来应对不同尺寸的PC屏幕（那时屏幕尺寸的差异不会太大），在当今的移动端开发也是常用布局方式，但缺点明显：主要的问题是如果屏幕尺度跨度太大，那么在相对其原始设计而言过小或过大的屏幕上不能正常显示。因为宽度使用%百分比定义，但是高度和文字大小等大都是用px来固定，所以在大屏幕的手机下显示效果会变成有些页面元素宽度被拉的很长，但是高度、文字大小还是和原来一样（即，这些东西无法变得“流式”），显示非常不协调。</li>
