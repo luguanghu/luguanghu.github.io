@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="luhu">
 <meta property="og:description" content="ajax12345678910111213141516171819var request;if(window.XMLHttpRequest)&amp;#123;    request = new XMLHttpRequest();&amp;#125; else &amp;#123;    request = new ActiveObject(&amp;apos;Microsoft.XMLHTTP&amp;apos;); // IE8/I">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-27T07:14:50.869Z">
+<meta property="og:updated_time" content="2019-03-16T08:53:29.269Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络通信">
 <meta name="twitter:description" content="ajax12345678910111213141516171819var request;if(window.XMLHttpRequest)&amp;#123;    request = new XMLHttpRequest();&amp;#125; else &amp;#123;    request = new ActiveObject(&amp;apos;Microsoft.XMLHTTP&amp;apos;); // IE8/I">
@@ -291,6 +291,15 @@
 </li>
 </ol>
 <h4 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h4><ol>
+<li><p>协商缓存：<br>1 解析URL，判断有没有缓存，没缓存则发起http请求<br>2 如果有缓存，判断缓存是否过期，缓存没过期的从缓存读取（200 form cache）<br>3 缓存过期的，如果存在etag（哈希值）,向服务器发起请求带 if-None-Match,服务器判断etag是否一致，一致则返回304，由浏览器从缓存读取，若etag不一致，响应200返回最新数据<br>4 缓存过期且不存在etag的，如果存在Last-Modified（最后修改时间）,向服务器发起带Last-Modified的请求，由服务器判断并返回304或200响应，若不存在Last-Modified则直接向服务器发起请求</p>
+</li>
+<li><p>代理缓存：代理服务器上缓存，请求时直接从代理服务器返回数据而非原始服务器返回数据</p>
+</li>
+<li>本地缓存（也称强制缓存），通常会在头部：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta http-equiv=&quot;Cache-Control&quot; content = &quot;no-cache&quot;&gt;</span><br><span class="line">&lt;meta http-equiv=&quot;Expires&quot; content = &quot;0&quot;&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>本地缓存就是不需要发送请求到服务器，直接从本地磁盘获取缓存过带资源，是利用响应报文中Expires盒Cache-Control两个字段来控制的<br>Expires设置过期时间 GMT格式，有效时间内都会直接从缓存读取<br>Cache-Control的值：<br>no-cache 不使用缓存，每次需要服务端验证，协商缓存<br>no-store 禁止浏览器缓存 每次都要发送新请求下载资源<br>public 可以被所有用户缓存，包括终端用户和中间代理服务器<br>private 只能被终端浏览器缓存，不允许代理服务器缓存</p>
+<ol start="4">
 <li>应用缓存<br>应用缓存manifest文件：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CACHE MANIFEST</span><br><span class="line">\#Comment</span><br><span class="line">file.js</span><br><span class="line">file.css</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
@@ -300,16 +309,7 @@
 </li>
 </ol>
 <p>js访问kookie：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.cookie ; // 根菌cookie的域，路径，失效时间和安全设置返回可用的所有kookie字符串，每个cookie健值对分号隔开，必须用decodeURLComponent(name)解码</span><br></pre></td></tr></table></figure></p>
-<h4 id="https"><a href="#https" class="headerlink" title="https"></a>https</h4><h3 id="缓存-1"><a href="#缓存-1" class="headerlink" title="缓存"></a>缓存</h3><ol>
-<li><p>协商缓存：<br>1 解析URL，判断有没有缓存，没缓存则发起http请求<br>2 如果有缓存，判断缓存是否过期，缓存没过期的从缓存读取（200 form cache）<br>3 缓存过期的，如果存在etag（哈希值）,向服务器发起请求带 if-None-Match,服务器判断etag是否一致，一致则返回304，由浏览器从缓存读取，若etag不一致，响应200返回最新数据<br>4 缓存过期且不存在etag的，如果存在Last-Modified（最后修改时间）,向服务器发起带Last-Modified的请求，由服务器判断并返回304或200响应，若不存在Last-Modified则直接向服务器发起请求</p>
-</li>
-<li><p>代理缓存：代理服务器上缓存，请求时直接从代理服务器返回数据而非原始服务器返回数据</p>
-</li>
-<li>本地缓存（也称强制缓存），通常会在头部：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta http-equiv=&quot;Cache-Control&quot; content = &quot;no-cache&quot;&gt;</span><br><span class="line">&lt;meta http-equiv=&quot;Expires&quot; content = &quot;0&quot;&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>本地缓存就是不需要发送请求到服务器，直接从本地磁盘获取缓存过带资源，是利用响应报文中Expires盒Cache-Control两个字段来控制的<br>Expires设置过期时间 GMT格式，有效时间内都会直接从缓存读取<br>Cache-Control的值：<br>no-cache 不使用缓存，每次需要服务端验证，协商缓存<br>no-store 禁止浏览器缓存 每次都要发送新请求下载资源<br>public 可以被所有用户缓存，包括终端用户和中间代理服务器<br>private 只能被终端浏览器缓存，不允许代理服务器缓存</p>
-<h3 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h3><h3 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h3><h3 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h3>
+<h3 id="https"><a href="#https" class="headerlink" title="https"></a>https</h3><h3 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h3><h3 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h3><h3 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h3>
         
       </div>
       
@@ -422,7 +422,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ajax"><span class="nav-number">1.</span> <span class="nav-text">ajax</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#规避同源限制"><span class="nav-number">2.</span> <span class="nav-text">规避同源限制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#缓存"><span class="nav-number">2.1.</span> <span class="nav-text">缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#https"><span class="nav-number">2.2.</span> <span class="nav-text">https</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存-1"><span class="nav-number">3.</span> <span class="nav-text">缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跨域"><span class="nav-number">4.</span> <span class="nav-text">跨域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络安全"><span class="nav-number">5.</span> <span class="nav-text">网络安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态码"><span class="nav-number">6.</span> <span class="nav-text">状态码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ajax"><span class="nav-number">1.</span> <span class="nav-text">ajax</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#规避同源限制"><span class="nav-number">2.</span> <span class="nav-text">规避同源限制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#缓存"><span class="nav-number">2.1.</span> <span class="nav-text">缓存</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#https"><span class="nav-number">3.</span> <span class="nav-text">https</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跨域"><span class="nav-number">4.</span> <span class="nav-text">跨域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络安全"><span class="nav-number">5.</span> <span class="nav-text">网络安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态码"><span class="nav-number">6.</span> <span class="nav-text">状态码</span></a></li></ol></div>
             
 
           </div>
